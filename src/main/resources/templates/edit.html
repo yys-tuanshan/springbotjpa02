@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{updateByEid}" method="post" th:object="${session.oneInfo}">
+        <input type="hidden" name="eid" th:value="*{eid}"><br>
+        <!--<input type="hidden" name="deptno" th:value="*{emp.dept.deptno}"><br>-->
+        姓名：<input type="text" name="ename" th:value="*{ename}"><br>
+        工资：<input type="text" name="sal" th:value="*{sal}"><br>
+        部门：<select name="dept">
+                <option th:text="*{dept.dname}" th:value="*{dept.deptno}"></option>
+                <option th:each="dept : ${session.depts}" th:text="${dept.dname}" th:value="${dept.deptno}"></option>
+              </select>
+        <br>
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>

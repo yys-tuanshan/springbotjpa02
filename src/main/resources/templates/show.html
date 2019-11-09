@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1" align="center" width="60%">
+        <tr>
+            <th>序号</th>
+            <th>员工编号</th>
+            <th>姓名</th>
+            <th>工资</th>
+            <th>部门</th>
+            <th>操作</th>
+        </tr>
+        <tr align="center" th:each="emp,loopStatus:${list}">
+            <td th:text="${loopStatus.index}"></td>
+            <td th:text="${emp.eid}"></td>
+            <td th:text="${emp.ename}"></td>
+            <td th:text="${emp.sal}"></td>
+            <td th:text="${emp.dept.dname}"></td>
+            <td>
+                <a th:href="@{/deleteInfo(eid=${emp.eid})}">删除</a>
+                <a th:href="@{/updateInfo(eid=${emp.eid})}">编辑</a>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="7">
+               共有<span th:text="${pageInfo.getTotalPages()}"></span> 页
+                <a th:href="@{/showAllInfo(cp=0)}">首页</a>
+                <a th:if="${ not pageInfo.isFirst()}" th:href="@{/showAllInfo(cp=${pageInfo.getNumber()}-1)}">上一页</a>
+                <a th:if="${ not pageInfo.isLast()}" th:href="@{/showAllInfo(cp=${pageInfo.getNumber()}+1)}">下一页</a>
+                <a  th:href="@{/showAllInfo(cp=${pageInfo.getTotalPages()}-1)}">尾页</a>
+                共有<span th:text="${pageInfo.getTotalElements()}"></span>条
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
